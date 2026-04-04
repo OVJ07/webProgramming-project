@@ -1,4 +1,84 @@
-/* ── Overall summary bar ── */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f2f5f9;
+  color: #2c3e50;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: #1f2d3d;
+  color: #fff;
+  padding: 24px 16px;
+  flex-shrink: 0;
+}
+
+.sidebar-header h2 {
+  margin: 0 0 24px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.sidebar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 8px;
+}
+
+.sidebar-menu a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #dce4ee;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+  background: #2f4258;
+  color: #fff;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.user-info {
+  color: #5a6b7b;
+  font-size: 0.95rem;
+}
+
 .overall-bar {
   display: flex;
   align-items: center;
@@ -7,7 +87,7 @@
   padding: 12px 20px;
   margin: 0 0 20px 0;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-size: 0.95rem;
   color: #2c3e50;
   border-left: 4px solid #3498db;
@@ -22,17 +102,15 @@
   font-size: 0.85rem;
 }
 
-/* ── Attendance container ── */
 .attendance-container {
   padding: 20px;
 }
 
-/* ── Add subject form ── */
 .attendance-form {
   background: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
@@ -41,14 +119,54 @@
   margin-bottom: 15px;
 }
 
-/* ── Attendance list ── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.form-group input {
+  padding: 10px 12px;
+  border: 1px solid #d3dce6;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.12);
+}
+
+.btn {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #3498db;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #2d86c2;
+}
+
 .attendance-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* ── Each attendance card ── */
 .attendance-item {
   background: #f8f9fa;
   border-radius: 6px;
@@ -57,10 +175,9 @@
 }
 
 .attendance-item:hover {
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Top row: subject name + percentage */
 .attendance-item-top {
   display: flex;
   justify-content: space-between;
@@ -79,10 +196,14 @@
   font-size: 1.1rem;
 }
 
-.attendance-percentage.good { color: #27ae60; }
-.attendance-percentage.low  { color: #e74c3c; }
+.attendance-percentage.good {
+  color: #27ae60;
+}
 
-/* ── Progress bar ── */
+.attendance-percentage.low {
+  color: #e74c3c;
+}
+
 .attendance-progress-bg {
   background-color: #e0e0e0;
   border-radius: 10px;
@@ -97,7 +218,6 @@
   transition: width 0.4s ease;
 }
 
-/* Bottom row: stats + action buttons */
 .attendance-item-bottom {
   display: flex;
   justify-content: space-between;
@@ -125,12 +245,26 @@
   font-size: 0.85rem;
 }
 
-.attendance-actions .btn-present { background: #27ae60; color: white; }
-.attendance-actions .btn-absent  { background: #e74c3c; color: white; }
-.attendance-actions .btn-edit    { background: #3498db; color: white; }
-.attendance-actions .btn-delete  { background: #95a5a6; color: white; }
+.attendance-actions .btn-present {
+  background: #27ae60;
+  color: white;
+}
 
-/* ── Warning box for low attendance ── */
+.attendance-actions .btn-absent {
+  background: #e74c3c;
+  color: white;
+}
+
+.attendance-actions .btn-edit {
+  background: #3498db;
+  color: white;
+}
+
+.attendance-actions .btn-delete {
+  background: #95a5a6;
+  color: white;
+}
+
 .attendance-warning {
   font-size: 0.78rem;
   color: #e74c3c;
@@ -141,9 +275,45 @@
   margin-top: 6px;
 }
 
-/* ── Empty / error message ── */
 .no-attendance {
   text-align: center;
   padding: 20px;
   color: #7f8c8d;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .sidebar-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .sidebar-menu li {
+    margin-bottom: 0;
+  }
+
+  .main-content {
+    padding: 16px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .attendance-item-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }

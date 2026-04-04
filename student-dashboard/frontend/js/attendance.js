@@ -291,34 +291,34 @@ function saveToStorage(records) {
 
 // Initialize attendance page
 document.addEventListener('DOMContentLoaded', () => {
-  if (window.location.pathname.includes('attendance.html')) {
-    getAttendance();
+  const addAttendanceBtn = document.getElementById('add-attendance-btn');
+  const attendanceList = document.getElementById('attendance-list');
 
-    const addAttendanceBtn = document.getElementById('add-attendance-btn');
-    if (addAttendanceBtn) {
-      addAttendanceBtn.addEventListener('click', () => {
-        const subject = document.getElementById('subject-name').value;
-        const present = parseInt(document.getElementById('present-count').value);
-        const total   = parseInt(document.getElementById('total-count').value);
+  if (!addAttendanceBtn || !attendanceList) return;
 
-        if (!subject) {
-          alert('Please enter a subject name');
-          return;
-        }
-        if (isNaN(present) || isNaN(total)) {
-          alert('Please enter valid numbers for present and total');
-          return;
-        }
-        if (present > total) {
-          alert('Present count cannot be more than total classes');
-          return;
-        }
+  getAttendance();
 
-        createAttendance(subject, present, total);
-        document.getElementById('subject-name').value   = '';
-        document.getElementById('present-count').value  = '0';
-        document.getElementById('total-count').value    = '0';
-      });
+  addAttendanceBtn.addEventListener('click', () => {
+    const subject = document.getElementById('subject-name').value;
+    const present = parseInt(document.getElementById('present-count').value);
+    const total   = parseInt(document.getElementById('total-count').value);
+
+    if (!subject) {
+      alert('Please enter a subject name');
+      return;
     }
-  }
+    if (isNaN(present) || isNaN(total)) {
+      alert('Please enter valid numbers for present and total');
+      return;
+    }
+    if (present > total) {
+      alert('Present count cannot be more than total classes');
+      return;
+    }
+
+    createAttendance(subject, present, total);
+    document.getElementById('subject-name').value   = '';
+    document.getElementById('present-count').value  = '0';
+    document.getElementById('total-count').value    = '0';
+  });
 });

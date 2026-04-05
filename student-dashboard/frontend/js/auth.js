@@ -1,98 +1,138 @@
 // Authentication functions
 const API_BASE_URL = 'http://localhost:5000/api';
 
-// Check if user is authenticated
+
+// ============================
+// 🔁 SMART REDIRECT (WORKS EVERYWHERE)
+// ============================
+function redirect(path) {
+  const base = window.location.pathname.includes('/modules/')
+    ? '../'
+    : './';
+
+  window.location.href = base + path;
+}
+
+
+// ============================
+// 🔐 CHECK AUTH
+// ============================
 function checkAuth() {
   const token = localStorage.getItem('token');
+
   if (!token) {
-    window.location.href = 'login.html';
+    redirect('login.html');
     return false;
   }
+
   return true;
 }
 
-// Login function
+
+// ============================
+// 🔓 LOGIN
+// ============================
 async function login(email, password) {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
 
     const data = await response.json();
-    
+
     if (response.ok) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data));
-      window.location.href = 'index.html';
+
+      redirect('index.html'); // ✅ universal redirect
       return true;
     } else {
       throw new Error(data.message || 'Login failed');
     }
+
   } catch (error) {
     console.error('Login error:', error);
     throw error;
   }
 }
 
-// Register function
+
+// ============================
+// 📝 REGISTER
+// ============================
 async function register(name, email, password) {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/signup`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password }),
     });
 
     const data = await response.json();
-    
+
     if (response.ok) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data));
-      window.location.href = 'index.html';
+
+      redirect('index.html'); // ✅ universal
       return true;
     } else {
       throw new Error(data.message || 'Registration failed');
     }
+
   } catch (error) {
     console.error('Registration error:', error);
     throw error;
   }
 }
 
-// Logout function
+
+// ============================
+// 🚪 LOGOUT
+// ============================
 function logout() {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
-  window.location.href = 'login.html';
+
+  redirect('login.html'); // ✅ works everywhere
 }
 
-// Set user info in dashboard
+
+// ============================
+// 👤 SET USER INFO
+// ============================
 function setUserInfo() {
   const user = JSON.parse(localStorage.getItem('user'));
-  if (user) {
-    document.getElementById('user-name').textContent = user.name;
-    document.getElementById('user-email').textContent = user.email;
-  }
+
+  if (!user) return;
+
+  const nameEl = document.getElementById('user-name');
+  const emailEl = document.getElementById('user-email');
+
+  if (nameEl) nameEl.textContent = user.name;
+  if (emailEl) emailEl.textContent = user.email;
 }
 
-// Check auth on page load
+
+// ============================
+// 🚀 INIT
+// ============================
 document.addEventListener('DOMContentLoaded', () => {
   const path = window.location.pathname;
 
-  // Check if current page is login or register
-  if (path.includes('login') || path.includes('register')) {
+  const isAuthPage =
+    path.includes('login') || path.includes('register');
 
-    // LOGIN FORM
+  if (isAuthPage) {
+
+    // LOGIN
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
       loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
@@ -104,11 +144,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // REGISTER FORM
+    // REGISTER
     const registerForm = document.getElementById('register-form');
     if (registerForm) {
       registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
@@ -122,8 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
   } else {
-    // Protected pages
+    // 🔐 PROTECTED PAGES
     if (!checkAuth()) return;
+
     setUserInfo();
 
     const logoutBtn = document.getElementById('logout-btn');

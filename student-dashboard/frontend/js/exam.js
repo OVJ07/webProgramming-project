@@ -129,3 +129,4 @@ window.getUpcomingExam = getUpcomingExam;
 
 
 document.addEventListener('DOMContentLoaded', initExamModule);
+

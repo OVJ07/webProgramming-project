@@ -3,7 +3,7 @@ const API_BASE_URL =
   window.location.hostname === '127.0.0.1' ||
   window.location.hostname === 'localhost'
     ? 'http://localhost:5000/api'   // 🔥 local
-    : 'https://your-app-name.onrender.com/api'; // 🚀 deployed
+    : 'https://webprogramming-project-zzg9.onrender.com/'; // 🚀 deployed
 
 
 // ============================

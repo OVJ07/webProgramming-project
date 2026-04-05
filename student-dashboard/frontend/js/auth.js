@@ -1,10 +1,11 @@
 // Authentication functions
-const API_BASE_URL =
-  window.location.hostname === '127.0.0.1' ||
-  window.location.hostname === 'localhost'
-    ? 'http://localhost:5000/api'
-    : 'https://webprogramming-project-zzg9.onrender.com/api';
+const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
 
+const API_BASE_URL = isLocal
+  ? 'http://localhost:5000/api'
+  : 'https://webprogramming-project-zzg9.onrender.com/api';
+
+console.log("API URL:", API_BASE_URL);
 
 // ============================
 // 🔁 SMART REDIRECT (WORKS EVERYWHERE)

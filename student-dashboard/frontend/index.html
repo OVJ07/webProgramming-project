@@ -1,108 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Productivity Dashboard</title>
-    <link rel="stylesheet" href="css/exam.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Productivity Dashboard</title>
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/task.css">
+  <link rel="stylesheet" href="css/attendance.css">
+  <link rel="stylesheet" href="css/timer.css">
+  <link rel="stylesheet" href="css/notes.css">
+  <link rel="stylesheet" href="css/exam.css">
 </head>
 <body>
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="logo">
-                <h2><i class="fas fa-graduation-cap"></i> StudyHub</h2>
-            </div>
-            <ul class="nav-links">
-                <li><a href="modules/task.html"><i class="fas fa-tasks"></i> Task Planner</a></li>
-                <li><a href="modules/attendance.html"><i class="fas fa-calendar-check"></i> Attendance</a></li>
-                <li><a href="modules/timer.html"><i class="fas fa-clock"></i> Study Timer</a></li>
-                <li><a href="modules/notes.html"><i class="fas fa-sticky-note"></i> Notes</a></li>
-                <li class="active"><a href="modules/exam.html"><i class="fas fa-calendar-alt"></i> Exam Countdown</a></li>
-            </ul>
+
+  <div class="container">
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h2>Student Dashboard</h2>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li><a href="index.html" class="active">Dashboard</a></li>
+        <li><a href="modules/task.html">Task Planner</a></li>
+        <li><a href="modules/attendance.html">Attendance</a></li>
+        <li><a href="modules/timer.html">Timer</a></li>
+        <li><a href="modules/notes.html">Notes</a></li>
+        <li><a href="modules/exam.html">Exam Countdown</a></li>
+        <li><a href="#" id="logout-btn">Logout</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main -->
+    <main class="main-content">
+
+      <div class="dashboard-header">
+        <h1>Welcome, <span id="user-name">Student</span>!</h1>
+        <div class="user-info">
+          <span id="user-email">student@example.com</span>
+        </div>
+      </div>
+
+      <div class="dashboard-content">
+
+        <!-- Stats -->
+        <div class="stats-container">
+          <div class="stat-card">
+            <h3>Tasks</h3>
+            <p id="tasks-count">0</p>
+            <p>Completed</p>
+          </div>
+
+          <div class="stat-card">
+            <h3>Attendance</h3>
+            <p id="attendance-percentage">0%</p>
+            <p>Average</p>
+          </div>
+
+          <div class="stat-card">
+            <h3>Notes</h3>
+            <p id="notes-count">0</p>
+            <p>Created</p>
+          </div>
+
+          <div class="stat-card">
+            <h3>Exams</h3>
+            <p id="exams-count">0</p>
+            <p>Upcoming</p>
+          </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <header>
-                <h1>Student Productivity Dashboard</h1>
-                <div class="user-info">
-                    <span>Welcome back, Alex!</span>
-                    <i class="fas fa-user-circle"></i>
-                </div>
-            </header>
-
-            <div class="dashboard-content">
-                <!-- Welcome Section -->
-                <div class="welcome-section">
-                    <h2>Good morning, Alex!</h2>
-                    <p>Here's your productivity overview for today</p>
-                </div>
-
-                <!-- Exam Countdown Summary -->
-                <div class="dashboard-card">
-                    <h3><i class="fas fa-calendar-alt"></i> Exam Countdown</h3>
-                    <div id="exam-summary" class="exam-summary">
-                        <p>Loading exam data...</p>
-                    </div>
-                </div>
-
-                <!-- Today's Tasks -->
-                <div class="dashboard-card">
-                    <h3><i class="fas fa-tasks"></i> Today's Tasks</h3>
-                    <div class="tasks-placeholder">
-                        <p>No tasks scheduled for today</p>
-                    </div>
-                </div>
-
-                <!-- Attendance Summary -->
-                <div class="dashboard-card">
-                    <h3><i class="fas fa-calendar-check"></i> Attendance Summary</h3>
-                    <div class="attendance-placeholder">
-                        <p>Attendance data will appear here</p>
-                    </div>
-                </div>
-
-                <!-- Study Timer Summary -->
-                <div class="dashboard-card">
-                    <h3><i class="fas fa-stopwatch"></i> Study Timer</h3>
-                    <div class="timer-placeholder">
-                        <p>Study time tracking will appear here</p>
-                    </div>
-                </div>
-
-                <!-- Notes Preview -->
-                <div class="dashboard-card">
-                    <h3><i class="fas fa-sticky-note"></i> Recent Notes</h3>
-                    <div class="notes-placeholder">
-                        <p>Recent notes will appear here</p>
-                    </div>
-                </div>
-            </div>
+        <!-- ✅ NEXT EXAM (MERGED FEATURE) -->
+        <div class="section">
+          <h2>Next Exam</h2>
+          <div class="exam-card" id="next-exam">
+            <p>Loading exam data...</p>
+          </div>
         </div>
-    </div>
 
-    <script src="js/exam.js"></script>
-    <script>
-        // Load exam summary when dashboard loads
-        document.addEventListener('DOMContentLoaded', function() {
-            loadExamSummary();
-        });
+        <!-- Tasks -->
+        <div class="section">
+          <h2>Recent Tasks</h2>
+          <div class="tasks-container" id="recent-tasks">
+            <p>No tasks found</p>
+          </div>
+        </div>
 
-        function loadExamSummary() {
-            const examSummary = document.getElementById('exam-summary');
-            const upcomingExam = getUpcomingExam();
-            
-            if (upcomingExam) {
-                examSummary.innerHTML = `
-                    <p class="next-exam">Next Exam: <strong>${upcomingExam.name}</strong> in <strong>${upcomingExam.daysLeft}</strong> days</p>
-                    <p class="exam-date">Exam Date: ${new Date(upcomingExam.date).toLocaleDateString()}</p>
-                `;
-            } else {
-                examSummary.innerHTML = '<p>No upcoming exams scheduled</p>';
-            }
-        }
-    </script>
+        <!-- Attendance -->
+        <div class="section">
+          <h2>Attendance Summary</h2>
+          <div class="attendance-summary" id="attendance-summary">
+            <p>No attendance records</p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ✅ IMPORTANT SCRIPTS -->
+  <script src="js/auth.js"></script>
+  <script src="js/task.js"></script>
+  <script src="js/attendance.js"></script>
+  <script src="js/notes.js"></script>
+  <script src="js/exam.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- 🔥 DASHBOARD LOGIC -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDashboard();
+    });
+
+    async function loadDashboard() {
+      loadExamSummary();
+      loadExamCount();
+    }
+
+    // ============================
+    // 🎯 NEXT EXAM (FROM 1ST HTML)
+    // ============================
+    async function loadExamSummary() {
+      const container = document.getElementById('next-exam');
+
+      const exam = await getUpcomingExam();
+
+      if (exam) {
+        container.innerHTML = `
+          <h3>${exam.name}</h3>
+          <p>Date: ${new Date(exam.date).toLocaleDateString()}</p>
+          <p>${exam.daysLeft} days left</p>
+        `;
+      } else {
+        container.innerHTML = `<p>No upcoming exams</p>`;
+      }
+    }
+
+    // ============================
+    // 📊 EXAM COUNT
+    // ============================
+    async function loadExamCount() {
+      const exams = await getExams();
+      document.getElementById('exams-count').textContent = exams.length;
+    }
+  </script>
+
 </body>
 </html>

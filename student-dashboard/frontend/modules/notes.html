@@ -1,28 +1,79 @@
-<html>
-    <head>
-        <title>Notes</title>
-        <link rel="notes" href="student-dashboard\frontend\css\notes.css">
-    </head>
-    <body>
-        
-        <h1><center>NOTES</center></h1>
-        
-        <br><br><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes - Student Dashboard</title>
 
-        <div>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/notes.css">
+</head>
+<body>
 
-        <label for="heading">Title for Notes: </label>
-        <input type ="text" id="heading" name="heading" placeholder="Enter your notes heading"><br><br>
+  <div class="container">
 
-        <label for="note">Notes: </label><br>
-        <textarea id="note" name="note" placeholder="Enter your notes"></textarea><br><br>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h2>Student Dashboard</h2>
+      </div>
 
-        <button onclick="submit()">Submit</button>
-        <button onclick="clear()">Clear</button>
+      <ul class="sidebar-menu">
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="task.html">Task Planner</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="timer.html">Timer</a></li>
+        <li><a href="notes.html" class="active">Notes</a></li>
+        <li><a href="exam.html">Exam Countdown</a></li>
+        <li><a href="#" id="logout-btn">Logout</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main -->
+    <main class="main-content">
+
+      <div class="dashboard-header">
+        <h1>Notes</h1>
+        <div class="user-info">
+          <span id="user-email">student@example.com</span>
+        </div>
+      </div>
+
+      <div class="notes-container">
+
+        <!-- Form -->
+        <div class="notes-form">
+          <h3>Add New Note</h3>
+
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" id="note-title" placeholder="Note title">
+          </div>
+
+          <div class="form-group">
+            <label>Content</label>
+            <textarea id="note-content" placeholder="Note content"></textarea>
+          </div>
+
+          <button class="btn btn-primary" id="add-note-btn">
+            Add Note
+          </button>
         </div>
 
+        <!-- Notes list -->
+        <div class="notes-list" id="notes-list">
+          <p>Loading notes...</p>
+        </div>
 
-        <script src="student-dashboard\frontend\js\notes.js"></script>
+      </div>
+    </main>
 
-    </body>
+  </div>
+
+  <!-- ✅ IMPORTANT -->
+  <script src="../js/auth.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/notes.js"></script>
+
+</body>
 </html>

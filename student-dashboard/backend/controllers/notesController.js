@@ -46,7 +46,7 @@ const deleteNote = async (req, res) => {
       return res.status(401).json({ message: 'Not authorized' });
     }
 
-    await note.remove();
+    await Note.findByIdAndDelete(req.params.id);
     res.json({ message: 'Note removed' });
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -74,7 +74,7 @@ const deleteAttendance = async (req, res) => {
       return res.status(401).json({ message: 'Not authorized' });
     }
 
-    await attendance.remove();
+    await Attendance.findByIdAndDelete(req.params.id);
     res.json({ message: 'Attendance record removed' });
   } catch (error) {
     res.status(500).json({ message: error.message });

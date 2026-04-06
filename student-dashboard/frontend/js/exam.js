@@ -50,6 +50,9 @@ async function createExam(name, date, description) {
 
 
 async function deleteExam(id) {
+    const confirmDelete = confirm('Delete this exam?');
+    if (!confirmDelete) return;
+
     try {
         const token = localStorage.getItem('token');
 
@@ -62,10 +65,11 @@ async function deleteExam(id) {
 
         if (!response.ok) throw new Error('Failed to delete exam');
 
-        return true;
+        // ✅ RELOAD UI
+        await loadExams();
 
     } catch (error) {
-        console.error('Error deleting exam:', error);
+        console.error(error);
         alert('Error deleting exam');
     }
 }
@@ -130,3 +134,4 @@ window.getUpcomingExam = getUpcomingExam;
 
 document.addEventListener('DOMContentLoaded', initExamModule);
 
+console.log(window.location.hostname);

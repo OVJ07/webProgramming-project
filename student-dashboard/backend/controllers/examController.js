@@ -47,7 +47,7 @@ const deleteExam = async (req, res) => {
       return res.status(401).json({ message: 'Not authorized' });
     }
 
-    await exam.remove();
+    await Exam.findByIdAndDelete(req.params.id);
     res.json({ message: 'Exam removed' });
   } catch (error) {
     res.status(500).json({ message: error.message });

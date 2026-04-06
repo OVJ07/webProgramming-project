@@ -148,18 +148,7 @@
       loadExams();
     }
 
-    // 🔥 DELETE EXAM
-    async function deleteExam(id) {
-      if (!confirm('Delete this exam?')) return;
-
-      await deleteExamFromAPI(id); // avoid conflict name
-      loadExams();
-    }
-
-    // wrapper (avoid name clash)
-    async function deleteExamFromAPI(id) {
-      return await deleteExam(id);
-    }
+  
   </script>
 
 </body>

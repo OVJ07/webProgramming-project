@@ -108,44 +108,6 @@
   <script src="js/exam.js"></script>
   <script src="js/main.js"></script>
 
-  <!-- 🔥 DASHBOARD LOGIC -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      loadDashboard();
-    });
-
-    async function loadDashboard() {
-      loadExamSummary();
-      loadExamCount();
-    }
-
-    // ============================
-    // 🎯 NEXT EXAM (FROM 1ST HTML)
-    // ============================
-    async function loadExamSummary() {
-      const container = document.getElementById('next-exam');
-
-      const exam = await getUpcomingExam();
-
-      if (exam) {
-        container.innerHTML = `
-          <h3>${exam.name}</h3>
-          <p>Date: ${new Date(exam.date).toLocaleDateString()}</p>
-          <p>${exam.daysLeft} days left</p>
-        `;
-      } else {
-        container.innerHTML = `<p>No upcoming exams</p>`;
-      }
-    }
-
-    // ============================
-    // 📊 EXAM COUNT
-    // ============================
-    async function loadExamCount() {
-      const exams = await getExams();
-      document.getElementById('exams-count').textContent = exams.length;
-    }
-  </script>
 
 </body>
 </html>

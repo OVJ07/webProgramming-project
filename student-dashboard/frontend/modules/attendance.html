@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance - Student Dashboard</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/attendance.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h2>Student Dashboard</h2>
+      </div>
+      <ul class="sidebar-menu">
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="task.html">Task Planner</a></li>
+        <li><a href="attendance.html" class="active">Attendance</a></li>
+        <li><a href="timer.html">Timer</a></li>
+        <li><a href="notes.html">Notes</a></li>
+        <li><a href="exam.html">Exam Countdown</a></li>
+        <li><a href="#" id="logout-btn">Logout</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="dashboard-header">
+        <h1>Attendance Tracker</h1>
+        <div class="user-info">
+          <span id="user-email">student@example.com</span>
+        </div>
+      </div>
+
+      <!-- Overall Attendance Summary -->
+      <div class="overall-bar" id="overall-bar" style="display:none;">
+        <span>Overall Attendance:</span>
+        <strong id="overall-pct">0%</strong>
+        <span id="overall-detail"></span>
+      </div>
+
+      <div class="attendance-container">
+
+        <!-- Add Subject Form -->
+        <div class="attendance-form">
+          <h3>Add New Subject</h3>
+          <div class="form-group">
+            <label for="subject-name">Subject Name</label>
+            <input type="text" id="subject-name" placeholder="Subject name">
+          </div>
+          <div class="form-group">
+            <label for="present-count">Present</label>
+            <input type="number" id="present-count" min="0" value="0">
+          </div>
+          <div class="form-group">
+            <label for="total-count">Total Classes</label>
+            <input type="number" id="total-count" min="0" value="0">
+          </div>
+          <button class="btn btn-primary" id="add-attendance-btn">Add Subject</button>
+        </div>
+
+        <!-- Attendance Records -->
+        <div class="attendance-list" id="attendance-list">
+          <p class="no-attendance">No attendance records found</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/attendance.js"></script>
+</body>
+</html>

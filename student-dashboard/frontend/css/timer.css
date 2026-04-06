@@ -1,0 +1,264 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f2f5f9;
+  color: #2c3e50;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  padding: 24px 16px;
+  flex-shrink: 0;
+  background: #1f2d3d;
+  color: #fff;
+}
+
+.sidebar-header h2 {
+  margin: 0 0 24px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.sidebar-menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-menu li {
+  margin-bottom: 8px;
+}
+
+.sidebar-menu a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #dce4ee;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+  background: #2f4258;
+  color: #fff;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.user-info {
+  color: #5a6b7b;
+  font-size: 0.95rem;
+}
+
+.timer-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(31, 45, 61, 0.08);
+  border: 1px solid #e5ebf2;
+}
+
+.timer-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 210px;
+  margin: 8px auto 28px;
+  border-radius: 50%;
+  width: min(280px, 70vw);
+  aspect-ratio: 1;
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #1f2d3d;
+  background: radial-gradient(circle at top, #ffffff 0%, #f6f9fc 55%, #edf3f9 100%);
+  border: 10px solid #e6eef7;
+  box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.85), 0 12px 24px rgba(52, 73, 94, 0.08);
+}
+
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.timer-btn {
+  min-width: 130px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(31, 45, 61, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.timer-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(31, 45, 61, 0.16);
+}
+
+.timer-btn.start {
+  background: #27ae60;
+}
+
+.timer-btn.pause {
+  background: #f39c12;
+}
+
+.timer-btn.reset {
+  background: #e74c3c;
+}
+
+.timer-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.timer-session {
+  margin-top: 8px;
+  padding: 22px;
+  background: #f8f9fa;
+  border: 1px solid #e6edf5;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.timer-session h3 {
+  margin: 0 0 14px;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.timer-session p {
+  margin: 0 0 8px;
+  font-size: 0.96rem;
+  color: #5a6b7b;
+}
+
+#session-type {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1f2d3d;
+}
+
+#session-count {
+  margin-bottom: 14px;
+}
+
+.timer-progress {
+  height: 10px;
+  background: #e3eaf2;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.timer-progress-bar {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #3498db, #5dade2);
+  transition: width 1s linear;
+}
+
+.timer-total {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: #f4f7fb;
+  border: 1px solid #e5ebf2;
+  font-size: 0.98rem;
+  color: #2c3e50;
+}
+
+.timer-total span {
+  font-weight: 700;
+  color: #1f2d3d;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .sidebar-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .sidebar-menu li {
+    margin-bottom: 0;
+  }
+
+  .main-content {
+    padding: 16px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timer-container {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .timer-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .timer-btn {
+    width: 100%;
+  }
+
+  .timer-session {
+    padding: 18px;
+  }
+}

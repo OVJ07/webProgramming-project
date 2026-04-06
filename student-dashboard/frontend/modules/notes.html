@@ -1,28 +1,39 @@
+
 <html>
-    <head>
-        <title>Notes</title>
-        <link rel="notes" href="student-dashboard\frontend\css\notes.css">
-    </head>
-    <body>
-        
-        <h1><center>NOTES</center></h1>
-        
-        <br><br><br>
+<head>
+  <title>Notes</title>
 
-        <div>
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/notes.css">
+</head>
+<body>
 
-        <label for="heading">Title for Notes: </label>
-        <input type ="text" id="heading" name="heading" placeholder="Enter your notes heading"><br><br>
+  <div class="main-container">
+    <h1>NOTES</h1>
 
-        <label for="note">Notes: </label><br>
-        <textarea id="note" name="note" placeholder="Enter your notes"></textarea><br><br>
+    <div class="input-section">
 
-        <button onclick="submit()">Submit</button>
-        <button onclick="clear()">Clear</button>
-        </div>
+      <!-- Title -->
+      <label for="titleInput">Title:</label><br>
+      <input type="text" id="titleInput" placeholder="Enter title for notes"><br><br>
 
+      <!-- Notes -->
+      <label for="noteInput">Notes:</label><br>
+      <textarea id="noteInput" placeholder="Enter your notes"></textarea><br><br>
 
-        <script src="student-dashboard\frontend\js\notes.js"></script>
+      <!-- Buttons -->
+      <div class="button-group">
+        <button onclick="addNote()">Submit</button>
+        <button onclick="clearFields()">Clear</button>
+      </div>
 
-    </body>
+    </div>
+
+    <!-- Display Section -->
+    <div id="notesContainer"></div>
+  </div>
+
+  <!-- JS -->
+  <script src="../js/notes.js"></script>
+</body>
 </html>

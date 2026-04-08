@@ -14,6 +14,11 @@ const noteSchema = new mongoose.Schema({
   content: {
     type: String,
     required: true
+  },
+  subject: {
+    type: String,
+    enum: ['WEBDEV', 'CAO', 'PROBABILITY', 'DAA', 'TOC', 'MPMC'],
+    required: true
   }
 }, {
   timestamps: true

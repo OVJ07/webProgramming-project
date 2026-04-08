@@ -5,12 +5,13 @@ const Note = require('../models/notesModel');
 // @access  Private
 const createNote = async (req, res) => {
   try {
-    const { title, content } = req.body;
+    const { title, content, subject } = req.body;
 
     const note = await Note.create({
       userId: req.user._id,
       title,
       content,
+      subject,
     });
 
     res.status(201).json(note);
@@ -24,7 +25,14 @@ const createNote = async (req, res) => {
 // @access  Private
 const getNotes = async (req, res) => {
   try {
-    const notes = await Note.find({ userId: req.user._id });
+    const { subject } = req.query;
+    const filter = { userId: req.user._id };
+    
+    if (subject) {
+      filter.subject = subject;
+    }
+    
+    const notes = await Note.find(filter);
     res.json(notes);
   } catch (error) {
     res.status(500).json({ message: error.message });

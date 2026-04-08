@@ -2,10 +2,16 @@
 
 
 // Get notes from API
-async function getNotes() {
+async function getNotes(subject = '') {
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch(`${API_BASE_URL}/notes`, {
+    let url = `${API_BASE_URL}/notes`;
+    
+    if (subject) {
+      url += `?subject=${subject}`;
+    }
+    
+    const response = await fetch(url, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -25,7 +31,7 @@ async function getNotes() {
 }
 
 // Create new note
-async function createNote(title, content) {
+async function createNote(title, content, subject) {
   try {
     const token = localStorage.getItem('token');
     const response = await fetch(`${API_BASE_URL}/notes`, {
@@ -34,7 +40,7 @@ async function createNote(title, content) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify({ title, content }),
+      body: JSON.stringify({ title, content, subject }),
     });
 
     if (!response.ok) {
@@ -42,7 +48,8 @@ async function createNote(title, content) {
     }
 
     const note = await response.json();
-    getNotes(); // Refresh note list
+    const selectedSubject = document.getElementById('subject-filter')?.value || '';
+    getNotes(selectedSubject); // Refresh note list with current filter
     return note;
   } catch (error) {
     console.error('Error creating note:', error);
@@ -82,9 +89,21 @@ function displayNotes(notes) {
     return;
   }
 
+  const subjectNames = {
+    'WEBDEV': 'Web Development',
+    'CAO': 'CAO',
+    'PROBABILITY': 'Probability',
+    'DAA': 'DAA',
+    'TOC': 'TOC',
+    'MPMC': 'MPMC'
+  };
+
   notesList.innerHTML = notes.map(note => `
     <div class="note-item" data-id="${note._id}">
-      <div class="note-title">${note.title}</div>
+      <div class="note-header">
+        <div class="note-title">${note.title}</div>
+        <span class="note-subject">${subjectNames[note.subject]}</span>
+      </div>
       <div class="note-content">${note.content}</div>
       <div class="note-actions">
         <button class="btn btn-delete" onclick="deleteNote('${note._id}')">Delete</button>
@@ -99,21 +118,41 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname.includes('notes.html')) {
     getNotes();
     
+    // Handle subject filter
+    const subjectFilter = document.getElementById('subject-filter');
+    if (subjectFilter) {
+      subjectFilter.addEventListener('change', () => {
+        getNotes(subjectFilter.value);
+      });
+    }
+    
     // Handle form submission
     const addNoteBtn = document.getElementById('add-note-btn');
     if (addNoteBtn) {
       addNoteBtn.addEventListener('click', () => {
         const title = document.getElementById('note-title').value;
         const content = document.getElementById('note-content').value;
+        const subject = document.getElementById('note-subject').value;
         
         if (!title) {
           alert('Please enter a note title');
           return;
         }
         
-        createNote(title, content);
+        if (!subject) {
+          alert('Please select a subject');
+          return;
+        }
+        
+        if (!content) {
+          alert('Please enter note content');
+          return;
+        }
+        
+        createNote(title, content, subject);
         document.getElementById('note-title').value = '';
         document.getElementById('note-content').value = '';
+        document.getElementById('note-subject').value = '';
       });
     }
   }

@@ -3,11 +3,11 @@
 }
 
 .task-form {
-  background: white;
+  background: #1e293b;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .task-form h3 {
@@ -18,7 +18,7 @@
 .task-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 18px;
 }
 
 .task-item {
@@ -26,14 +26,16 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  background: #f8f9fa;
+  background: #1e293b;
   border-radius: 6px;
   border-left: 4px solid #3498db;
   transition: all 0.3s ease;
+  margin-top:16px;
 }
 
 .task-item:hover {
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+
 }
 
 .task-item.completed {
@@ -47,13 +49,13 @@
 
 .task-title {
   font-weight: 500;
-  color: #2c3e50;
+  color: #edf6ff;
   flex: 1;
 }
 
 .task-due {
   margin: 0 15px;
-  color: #7f8c8d;
+  color: #ffffff;
   font-size: 0.9rem;
 }
 

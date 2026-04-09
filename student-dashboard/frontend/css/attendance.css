@@ -279,10 +279,25 @@ padding: 18px 20px;
   font-size: 0.85rem;
 }
 
-.attendance-actions button .btn-present { background-color: #22c55e; color: white; }
-.attendance-actions button .btn-absent { background-color: #ef4444; color: white; }
-.attendance-actions button .btn-edit { background-color: #3b82f6; color: white; }
-.attendance-actions button .btn-delete { background-color: #9ca3af; color: white; }
+.attendance-actions button.btn-present {
+  background-color: #22c55e !important;
+  color: white !important;
+}
+
+.attendance-actions button.btn-absent {
+  background-color: #ef4444 !important;
+  color: white !important;
+}
+
+.attendance-actions button.btn-edit {
+  background-color: #3b82f6 !important;
+  color: white !important;
+}
+
+.attendance-actions button.btn-delete {
+  background-color: #9ca3af !important;
+  color: white !important;
+}
 
 .attendance-warning {
   font-size: 0.78rem;

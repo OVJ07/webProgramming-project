@@ -61,7 +61,10 @@ a {
 
 .main-content {
   flex: 1;
-  padding: 24px;
+  padding: 30px 30px 30px 40px; 
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .dashboard-header {

@@ -468,7 +468,7 @@ a {
 
 /* Each exam card */
 .exam-item {
-  background: #0f172a;
+  background: #75cdeb;
   border: 1px solid #334155;
   color: #e2e8f0;
   padding: 14px 16px;
@@ -479,11 +479,7 @@ a {
 }
 
 /* Hover effect */
-.exam-item:hover {
-  background: #eef3ff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
+
 
 /* Title */
 .exam-item h3 {

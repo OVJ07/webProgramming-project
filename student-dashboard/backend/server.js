@@ -14,11 +14,15 @@ app.use(cors({
   origin: [
     'http://localhost:5500',
     'http://127.0.0.1:5500',
-    'https://ovj07.github.io'
+    'https://ovj07.github.io',
+    'https://ovj07.github.io/student-dashboard'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
+
+app.options('*', cors());
+
 app.use(express.json());
 
 // Routes

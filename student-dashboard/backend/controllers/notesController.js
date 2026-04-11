@@ -1,8 +1,6 @@
 const Note = require('../models/notesModel');
 
-// @desc    Create a new note
-// @route   POST /api/notes
-// @access  Private
+// Create new note
 const createNote = async (req, res) => {
   try {
     const { title, content, subject } = req.body;
@@ -20,9 +18,7 @@ const createNote = async (req, res) => {
   }
 };
 
-// @desc    Get all notes for user
-// @route   GET /api/notes
-// @access  Private
+// Get all notes for user
 const getNotes = async (req, res) => {
   try {
     const { subject } = req.query;
@@ -39,9 +35,7 @@ const getNotes = async (req, res) => {
   }
 };
 
-// @desc    Delete note
-// @route   DELETE /api/notes/:id
-// @access  Private
+// Delete note
 const deleteNote = async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);

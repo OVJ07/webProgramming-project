@@ -41,7 +41,7 @@
 
       <div class="exam-container">
 
-        <!-- ✅ KEEP nice form UI -->
+        <!-- Exam Form -->
         <div class="exam-form">
           <h2>Add New Exam</h2>
 
@@ -55,7 +55,7 @@
             <input type="date" id="examDate">
           </div>
 
-          <!-- ✅ Added from backend version -->
+          <!-- Description -->
           <div class="form-group">
             <label>Description</label>
             <textarea id="examDescription" placeholder="Optional"></textarea>
@@ -66,7 +66,7 @@
           </button>
         </div>
 
-        <!-- ✅ KEEP card layout -->
+        <!-- Exams List -->
         <div class="exams-list">
           <h2>Your Exams</h2>
 
@@ -79,12 +79,12 @@
     </main>
   </div>
 
-  <!-- ✅ IMPORTANT SCRIPTS -->
+  <!-- Scripts -->
   <script src="../js/auth.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/exam.js"></script>
 
-  <!-- ✅ CUSTOM UI LOGIC (MODIFIED FOR BACKEND) -->
+  <!-- Custom Logic -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       loadExams();
@@ -92,7 +92,7 @@
       document.getElementById('addExamBtn').addEventListener('click', addExam);
     });
 
-    // 🔥 LOAD EXAMS FROM BACKEND
+    // Load exams
     async function loadExams() {
       const exams = await getExams(); // backend call
       const container = document.getElementById('examsContainer');
@@ -127,7 +127,7 @@
       });
     }
 
-    // 🔥 ADD EXAM (BACKEND)
+    // Add exam
     async function addExam() {
       const name = document.getElementById('examName').value;
       const date = document.getElementById('examDate').value;

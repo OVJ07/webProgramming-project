@@ -7,9 +7,7 @@ connectDB();
 
 const app = express();
 
-// Middleware
-
-
+// Middleware configuration
 app.use(cors({
   origin: [
     'http://localhost:5500',
@@ -25,11 +23,12 @@ app.options('*', cors());
 
 app.use(express.json());
 
-// Routes
+// Health check endpoint
 app.get("/", (req, res) => {
   res.send("API is running 🚀");
 });
 
+// API routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
 app.use('/api/attendance', require('./routes/attendanceRoutes'));

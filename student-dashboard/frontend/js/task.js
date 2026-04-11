@@ -1,7 +1,6 @@
 // Task management functions
 
-
-// Get tasks from API
+// Fetch tasks from API
 async function getTasks() {
   try {
     const token = localStorage.getItem('token');
@@ -42,7 +41,7 @@ async function createTask(title, description, dueDate) {
     }
 
     const task = await response.json();
-    getTasks(); // Refresh task list
+    getTasks();
     return task;
   } catch (error) {
     console.error('Error creating task:', error);
@@ -68,7 +67,7 @@ async function updateTask(id, updates) {
     }
 
     const task = await response.json();
-    getTasks(); // Refresh task list
+    getTasks();
     return task;
   } catch (error) {
     console.error('Error updating task:', error);
@@ -91,7 +90,7 @@ async function deleteTask(id) {
       throw new Error('Failed to delete task');
     }
 
-    getTasks(); // Refresh task list
+    getTasks();
     return true;
   } catch (error) {
     console.error('Error deleting task:', error);
@@ -131,13 +130,12 @@ async function toggleTask(id, completed) {
   }
 }
 
-// Initialize task page
+// Initialize task page on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
-  // Only run on task page
   if (window.location.pathname.includes('task.html')) {
     getTasks();
     
-    // Handle form submission
+    // Form submission handler
     const addTaskBtn = document.getElementById('add-task-btn');
     if (addTaskBtn) {
       addTaskBtn.addEventListener('click', () => {

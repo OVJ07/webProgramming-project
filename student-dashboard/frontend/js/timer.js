@@ -1,19 +1,10 @@
-// Pomodoro Timer (BACKEND VERSION)
+// Pomodoro Timer
 
-// ============================================================
-// REQUIREMENTS:
-// - API_BASE_URL defined globally
-// - Token stored: localStorage.setItem('token', data.token)
-// - Backend route (you must create if not exists):
-//   GET    /api/pomodoro
-//   POST   /api/pomodoro   { studiedSeconds }
-// ============================================================
+// Timer configuration
+const FOCUS_DURATION = 1500;
+const BREAK_DURATION = 300; 
 
-
-// SETTINGS
-const FOCUS_DURATION = 30; // seconds (change to 1800 for real use)
-const BREAK_DURATION = 10;
-
+// Timer state variables
 let timer = null;
 let timeLeft = FOCUS_DURATION;
 let isRunning = false;
@@ -21,7 +12,7 @@ let currentSession = 1;
 let sessionType = 'Focus Time';
 let studied = 0;
 
-// DOM elements
+// DOM element references
 let timerDisplay;
 let startBtn;
 let pauseBtn;
@@ -31,12 +22,7 @@ let sessionCountEl;
 let progressBar;
 let totalTimeEl;
 
-
-// ============================
-// 🔥 BACKEND FUNCTIONS
-// ============================
-
-// Get studied time from backend
+// Fetch studied time from backend
 async function fetchStudiedTime() {
   try {
     const token = localStorage.getItem('token');
@@ -58,7 +44,6 @@ async function fetchStudiedTime() {
   }
 }
 
-
 // Save studied time to backend
 async function saveStudiedTime() {
   try {
@@ -78,30 +63,26 @@ async function saveStudiedTime() {
   }
 }
 
-
-// ============================
-// ⏱️ TIMER LOGIC (UNCHANGED)
-// ============================
-
+// Format seconds to MM:SS format
 function formatTime(seconds) {
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
   return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
-
+// Update total time display
 function updateTotalTime() {
   if (totalTimeEl) totalTimeEl.textContent = studied;
 }
 
-
+// Update button states
 function updateControls() {
   if (!startBtn || !pauseBtn) return;
   startBtn.disabled = isRunning;
   pauseBtn.disabled = !isRunning;
 }
 
-
+// Update timer display
 function updateTimer() {
   if (!timerDisplay || !progressBar) return;
 
@@ -113,7 +94,7 @@ function updateTimer() {
   progressBar.style.width = `${Math.max(0, Math.min(progress, 100))}%`;
 }
 
-
+// Update session display
 function updateSessionDisplay() {
   if (!sessionTypeEl || !sessionCountEl) return;
 
@@ -123,16 +104,12 @@ function updateSessionDisplay() {
   updateTimer();
 }
 
-
-// ============================
-// 🔁 SESSION SWITCH
-// ============================
-
+// Switch to next session
 function nextSession() {
   if (sessionType === 'Focus Time') {
     studied += FOCUS_DURATION;
 
-    saveStudiedTime(); // 🔥 backend sync
+    saveStudiedTime();
 
     sessionType = 'Break Time';
     timeLeft = BREAK_DURATION;
@@ -148,11 +125,7 @@ function nextSession() {
   updateControls();
 }
 
-
-// ============================
-// ▶️ CONTROLS
-// ============================
-
+// Start timer
 function startTimer() {
   if (isRunning) return;
 
@@ -175,7 +148,7 @@ function startTimer() {
   }, 1000);
 }
 
-
+// Pause timer
 function pauseTimer() {
   if (!isRunning) return;
 
@@ -185,7 +158,7 @@ function pauseTimer() {
   updateControls();
 }
 
-
+// Reset timer
 function resetTimer() {
   clearInterval(timer);
   timer = null;
@@ -196,18 +169,14 @@ function resetTimer() {
   sessionType = 'Focus Time';
   studied = 0;
 
-  saveStudiedTime(); // 🔥 backend reset
+  saveStudiedTime();
 
   updateControls();
   updateSessionDisplay();
   updateTotalTime();
 }
 
-
-// ============================
-// 🚀 INIT
-// ============================
-
+// Initialize timer on page load
 document.addEventListener('DOMContentLoaded', () => {
   timerDisplay = document.getElementById('timer');
   startBtn = document.getElementById('start-btn');
@@ -220,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!timerDisplay) return;
 
-  fetchStudiedTime(); // 🔥 load from backend
+  fetchStudiedTime();
   updateControls();
   updateSessionDisplay();
 

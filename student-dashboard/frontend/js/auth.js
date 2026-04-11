@@ -1,4 +1,4 @@
-// Authentication functions
+// API configuration based on environment
 const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
 
 const API_BASE_URL = isLocal
@@ -7,9 +7,7 @@ const API_BASE_URL = isLocal
 
 console.log("API URL:", API_BASE_URL);
 
-// ============================
-// 🔁 SMART REDIRECT (WORKS EVERYWHERE)
-// ============================
+// Redirect to page handling both module and root paths
 function redirect(path) {
   const base = window.location.pathname.includes('/modules/')
     ? '../'
@@ -18,10 +16,7 @@ function redirect(path) {
   window.location.href = base + path;
 }
 
-
-// ============================
-// 🔐 CHECK AUTH
-// ============================
+// Check if user is authenticated
 function checkAuth() {
   const token = localStorage.getItem('token');
 
@@ -33,10 +28,7 @@ function checkAuth() {
   return true;
 }
 
-
-// ============================
-// 🔓 LOGIN
-// ============================
+// User login
 async function login(email, password) {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -51,7 +43,7 @@ async function login(email, password) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data));
 
-      redirect('index.html'); // ✅ universal redirect
+      redirect('index.html');
       return true;
     } else {
       throw new Error(data.message || 'Login failed');
@@ -63,10 +55,7 @@ async function login(email, password) {
   }
 }
 
-
-// ============================
-// 📝 REGISTER
-// ============================
+// User registration
 async function register(name, email, password) {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/signup`, {
@@ -81,7 +70,7 @@ async function register(name, email, password) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data));
 
-      redirect('index.html'); // ✅ universal
+      redirect('index.html');
       return true;
     } else {
       throw new Error(data.message || 'Registration failed');
@@ -93,21 +82,15 @@ async function register(name, email, password) {
   }
 }
 
-
-// ============================
-// 🚪 LOGOUT
-// ============================
+// User logout
 function logout() {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
 
-  redirect('login.html'); // ✅ works everywhere
+  redirect('login.html');
 }
 
-
-// ============================
-// 👤 SET USER INFO
-// ============================
+// Display user info in UI
 function setUserInfo() {
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -120,10 +103,7 @@ function setUserInfo() {
   if (emailEl) emailEl.textContent = user.email;
 }
 
-
-// ============================
-// 🚀 INIT
-// ============================
+// Handle page load
 document.addEventListener('DOMContentLoaded', () => {
   const path = window.location.pathname;
 
@@ -132,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (isAuthPage) {
 
-    // LOGIN
+    // Login form handler
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
       loginForm.addEventListener('submit', async (e) => {
@@ -149,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // REGISTER
+    // Register form handler
     const registerForm = document.getElementById('register-form');
     if (registerForm) {
       registerForm.addEventListener('submit', async (e) => {
@@ -168,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
   } else {
-    // 🔐 PROTECTED PAGES
+    // Protected page handlers
     if (!checkAuth()) return;
 
     setUserInfo();

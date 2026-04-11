@@ -1,68 +1,56 @@
-// Main dashboard functions
-
-// Load dashboard data
+// Load and display dashboard data
 async function loadDashboard() {
   try {
     const token = localStorage.getItem('token');
 
-    // ====================
-    // 👤 USER INFO
-    // ====================
+    // Display user information
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       document.getElementById('user-name').textContent = user.name;
       document.getElementById('user-email').textContent = user.email;
     }
 
-    // ====================
-    // 📋 TASKS
-    // ====================
+    // Fetch and display task count
     const tasksResponse = await fetch(`${API_BASE_URL}/tasks`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const tasks = await tasksResponse.json();
     document.getElementById('tasks-count').textContent = tasks.length;
 
-    // ====================
-    // 📝 NOTES
-    // ====================
+    // Fetch and display note count
     const notesResponse = await fetch(`${API_BASE_URL}/notes`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const notes = await notesResponse.json();
     document.getElementById('notes-count').textContent = notes.length;
 
-    // ====================
-    // 📅 EXAMS
-    // ====================
+    // Fetch and display upcoming exams
     const examsResponse = await fetch(`${API_BASE_URL}/exams/upcoming`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const exams = await examsResponse.json();
     document.getElementById('exams-count').textContent = exams.length;
 
-   // 🎯 All upcoming exams (sorted)
-const examContainer = document.getElementById('next-exam');
+    // Display upcoming exams in UI
+    const examContainer = document.getElementById('next-exam');
 
-if (exams.length === 0) {
-  examContainer.innerHTML = `<p>No upcoming exams</p>`;
-} else {
-  examContainer.innerHTML = exams.map(exam => {
-    const daysLeft = daysUntil(exam.date);
+    if (exams.length === 0) {
+      examContainer.innerHTML = `<p>No upcoming exams</p>`;
+    } else {
+      examContainer.innerHTML = exams.map(exam => {
+        const daysLeft = daysUntil(exam.date);
 
-    return `
-      <div class="exam-item ${daysLeft <= 3 ? 'urgent' : ''}">
-        <h3>${exam.subject}</h3>
-        <p>Date: ${new Date(exam.date).toLocaleDateString()}</p>
-        <p>${daysLeft > 0 ? `${daysLeft} days left` : 'Exam today!'}</p>
-      </div>
-    `;
-  }).join('');
-}
+        return `
+          <div class="exam-item ${daysLeft <= 3 ? 'urgent' : ''}">
+            <h3>${exam.subject}</h3>
+            <p>Date: ${new Date(exam.date).toLocaleDateString()}</p>
+            <p>${daysLeft > 0 ? `${daysLeft} days left` : 'Exam today!'}</p>
+          </div>
+        `;
+      }).join('');
+    }
 
-    // ====================
-    // 📌 RECENT TASKS
-    // ====================
+    // Display recent tasks
     const recentTasks = tasks.slice(0, 3);
     const tasksContainer = document.getElementById('recent-tasks');
 
@@ -77,9 +65,7 @@ if (exams.length === 0) {
       `).join('');
     }
 
-    // ====================
-    // 📊 ATTENDANCE
-    // ====================
+    // Display attendance summary
     const attendanceResponse = await fetch(`${API_BASE_URL}/attendance`, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -102,7 +88,6 @@ if (exams.length === 0) {
         ? Math.round((totalPresent / totalTotal) * 100)
         : 0;
 
-      // 🔥 Update stat card
       document.getElementById('attendance-percentage').textContent = percentage + '%';
 
       attendanceContainer.innerHTML = `
@@ -126,20 +111,14 @@ if (exams.length === 0) {
   }
 }
 
-
-// ============================
-// 📅 Days until exam
-// ============================
+// Calculate days until a given date
 function daysUntil(date) {
   const today = new Date();
   const examDate = new Date(date);
   return Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
 }
 
-
-// ============================
-// 🚀 INIT
-// ============================
+// Initialize dashboard on page load
 document.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
     loadDashboard();

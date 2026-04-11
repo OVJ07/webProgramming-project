@@ -9,21 +9,19 @@ const generateToken = (id) => {
   });
 };
 
-// @desc    Register a new user
-// @route   POST /api/auth/signup
-// @access  Public
+// Register new user
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Check if user exists
+    // Check if user already exists
     const userExists = await User.findOne({ email });
 
     if (userExists) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Create user
+    // Create new user
     const user = await User.create({
       name,
       email,
@@ -45,9 +43,7 @@ const registerUser = async (req, res) => {
   }
 };
 
-// @desc    Authenticate a user
-// @route   POST /api/auth/login
-// @access  Public
+// Login user
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;

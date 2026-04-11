@@ -1,7 +1,4 @@
-// Notes management functions
-
-
-// Get notes from API
+// Fetch notes from API
 async function getNotes(subject = '') {
   try {
     const token = localStorage.getItem('token');
@@ -49,7 +46,7 @@ async function createNote(title, content, subject) {
 
     const note = await response.json();
     const selectedSubject = document.getElementById('subject-filter')?.value || '';
-    getNotes(selectedSubject); // Refresh note list with current filter
+    getNotes(selectedSubject);
     return note;
   } catch (error) {
     console.error('Error creating note:', error);
@@ -72,7 +69,7 @@ async function deleteNote(id) {
       throw new Error('Failed to delete note');
     }
 
-    getNotes(); // Refresh note list
+    getNotes();
     return true;
   } catch (error) {
     console.error('Error deleting note:', error);
@@ -80,7 +77,7 @@ async function deleteNote(id) {
   }
 }
 
-// Display notes in the UI
+// Display notes in UI
 function displayNotes(notes) {
   const notesList = document.getElementById('notes-list');
   

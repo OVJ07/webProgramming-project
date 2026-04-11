@@ -1,8 +1,6 @@
 const Exam = require('../models/examModel');
 
-// @desc    Create a new exam
-// @route   POST /api/exams
-// @access  Private
+// Create new exam
 const createExam = async (req, res) => {
   try {
     const { subject, date, description } = req.body;
@@ -20,9 +18,7 @@ const createExam = async (req, res) => {
   }
 };
 
-// @desc    Get all exams for user
-// @route   GET /api/exams
-// @access  Private
+// Get all exams for user
 const getExams = async (req, res) => {
   try {
     const exams = await Exam.find({ userId: req.user._id });
@@ -32,9 +28,7 @@ const getExams = async (req, res) => {
   }
 };
 
-// @desc    Delete exam
-// @route   DELETE /api/exams/:id
-// @access  Private
+// Delete exam
 const deleteExam = async (req, res) => {
   try {
     const exam = await Exam.findById(req.params.id);
@@ -54,9 +48,7 @@ const deleteExam = async (req, res) => {
   }
 };
 
-// @desc    Get upcoming exams
-// @route   GET /api/exams/upcoming
-// @access  Private
+// Get upcoming exams
 const getUpcomingExams = async (req, res) => {
   try {
     const now = new Date();

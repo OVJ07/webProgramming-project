@@ -1,4 +1,5 @@
 
+// Fetch all exams
 async function getExams() {
     try {
         const token = localStorage.getItem('token');
@@ -20,7 +21,7 @@ async function getExams() {
 }
 
 
-
+// Create new exam
 async function createExam(name, date, description) {
     try {
         const token = localStorage.getItem('token');
@@ -32,7 +33,7 @@ async function createExam(name, date, description) {
                 'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({
-                subject: name,   // IMPORTANT mapping
+                subject: name,
                 date: date,
                 description: description || ''
             }),
@@ -48,7 +49,7 @@ async function createExam(name, date, description) {
     }
 }
 
-
+// Delete exam
 async function deleteExam(id) {
     const confirmDelete = confirm('Delete this exam?');
     if (!confirmDelete) return;
@@ -65,7 +66,6 @@ async function deleteExam(id) {
 
         if (!response.ok) throw new Error('Failed to delete exam');
 
-        // ✅ RELOAD UI
         await loadExams();
 
     } catch (error) {
@@ -76,6 +76,7 @@ async function deleteExam(id) {
 
 
 
+// Calculate days remaining until exam
 function calculateDaysLeft(examDate) {
     const today = new Date();
     const exam = new Date(examDate);
@@ -87,7 +88,7 @@ function calculateDaysLeft(examDate) {
     return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 }
 
-
+// Get the next upcoming exam
 async function getUpcomingExam() {
     const exams = await getExams();
 
@@ -119,19 +120,19 @@ async function getUpcomingExam() {
 
 
 
+// Initialize exam module
 function initExamModule() {
     console.log("Exam module initialized");
 }
 
-
+// Export functions to global scope
 window.getExams = getExams;
-window.createExam = createExam;   // ✅ matches HTML
-window.deleteExam = deleteExam;   // ✅ matches HTML
+window.createExam = createExam;
+window.deleteExam = deleteExam;
 window.calculateDaysLeft = calculateDaysLeft;
 window.getUpcomingExam = getUpcomingExam;
 
-
-
+// Initialize on DOM load
 document.addEventListener('DOMContentLoaded', initExamModule);
 
 console.log(window.location.hostname);

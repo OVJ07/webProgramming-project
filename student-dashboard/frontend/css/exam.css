@@ -183,7 +183,7 @@ header h1 {
 .exam-container {
     width: 100%;
     max-width: 1200px;
-    margin: 20px 0;   /* 🔥 remove auto (center gap) */
+    margin: 20px 0;   /* Remove auto to prevent center gap */
 }
 
 .exam-header {
@@ -247,7 +247,7 @@ header h1 {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #8b5cf6, #6366f1); /* ✅ purple gradient */
+    background: linear-gradient(135deg, #8b5cf6, #6366f1); /* Purple gradient styling */
     color: white;
     border: none;
     padding: 12px 18px;

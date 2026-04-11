@@ -1,18 +1,6 @@
-// Attendance management functions (FULL BACKEND VERSION)
+// Attendance management functions
 
-// ============================================================
-// REQUIREMENTS:
-// - API_BASE_URL defined globally (e.g., main.js)
-// - Token stored as: localStorage.setItem('token', data.token)
-// - Backend routes:
-//   GET    /api/attendance
-//   POST   /api/attendance
-//   PUT    /api/attendance/:id
-//   DELETE /api/attendance/:id
-// ============================================================
-
-
-// Get attendance records
+// Fetch attendance records
 async function getAttendance() {
   try {
     const token = localStorage.getItem('token');
@@ -39,8 +27,7 @@ async function getAttendance() {
   }
 }
 
-
-// Create new attendance record
+// Create attendance record
 async function createAttendance(subject, present, total) {
   try {
     const token = localStorage.getItem('token');
@@ -65,7 +52,6 @@ async function createAttendance(subject, present, total) {
     alert('Error creating attendance record');
   }
 }
-
 
 // Update attendance record
 async function updateAttendance(id, updates) {
@@ -93,7 +79,6 @@ async function updateAttendance(id, updates) {
   }
 }
 
-
 // Delete attendance record
 async function deleteAttendance(id) {
   try {
@@ -119,8 +104,7 @@ async function deleteAttendance(id) {
   }
 }
 
-
-// Mark present
+// Mark attendance as present
 async function markPresent(id, currentPresent, currentTotal) {
   await updateAttendance(id, {
     present: currentPresent + 1,
@@ -128,8 +112,7 @@ async function markPresent(id, currentPresent, currentTotal) {
   });
 }
 
-
-// Mark absent
+// Mark attendance as absent
 async function markAbsent(id, currentPresent, currentTotal) {
   await updateAttendance(id, {
     present: currentPresent,
@@ -137,15 +120,13 @@ async function markAbsent(id, currentPresent, currentTotal) {
   });
 }
 
-
-// Calculate percentage
+// Calculate attendance percentage
 function calculatePercentage(present, total) {
   if (total === 0) return 0;
   return Math.round((present / total) * 100);
 }
 
-
-// Classes needed to reach 75%
+// Calculate classes needed to reach 75%
 function classesNeeded(present, total) {
   let n = 0, p = present, t = total;
 
@@ -156,8 +137,7 @@ function classesNeeded(present, total) {
   return n;
 }
 
-
-// Display attendance records (FULL UI)
+// Display attendance records in UI
 function displayAttendance(attendance) {
   const attendanceList = document.getElementById('attendance-list');
 
@@ -223,8 +203,7 @@ function displayAttendance(attendance) {
   }).join('');
 }
 
-
-// Edit attendance
+// Edit attendance record
 function editAttendance(id, present, total) {
   const newPresent = prompt('Enter new present count:', present);
   const newTotal = prompt('Enter new total count:', total);
@@ -237,8 +216,7 @@ function editAttendance(id, present, total) {
   }
 }
 
-
-// Overall attendance bar
+// Update overall attendance bar
 function updateOverallBar(records) {
   const overallBar = document.getElementById('overall-bar');
   if (!overallBar) return;
@@ -264,8 +242,7 @@ function updateOverallBar(records) {
     `(${totalPresent} attended out of ${totalClasses})`;
 }
 
-
-// Initialize
+// Initialize attendance page on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
   const addBtn = document.getElementById('add-attendance-btn');
 

@@ -1,8 +1,6 @@
 const Attendance = require('../models/attendanceModel');
 
-// @desc    Create attendance record
-// @route   POST /api/attendance
-// @access  Private
+// Create attendance record
 const createAttendance = async (req, res) => {
   try {
     const { subject, present, total } = req.body;
@@ -20,9 +18,7 @@ const createAttendance = async (req, res) => {
   }
 };
 
-// @desc    Get all attendance records for user
-// @route   GET /api/attendance
-// @access  Private
+// Get all attendance records for user
 const getAttendance = async (req, res) => {
   try {
     const attendances = await Attendance.find({ userId: req.user._id });
@@ -32,9 +28,7 @@ const getAttendance = async (req, res) => {
   }
 };
 
-// @desc    Update attendance record
-// @route   PUT /api/attendance/:id
-// @access  Private
+// Update attendance record
 const updateAttendance = async (req, res) => {
   try {
     const { subject, present, total } = req.body;
@@ -59,9 +53,7 @@ const updateAttendance = async (req, res) => {
   }
 };
 
-// @desc    Delete attendance record
-// @route   DELETE /api/attendance/:id
-// @access  Private
+// Delete attendance record
 const deleteAttendance = async (req, res) => {
   try {
     const attendance = await Attendance.findById(req.params.id);
